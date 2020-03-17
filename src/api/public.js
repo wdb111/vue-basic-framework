@@ -1,11 +1,10 @@
 import fetch from '../utils/fetch';
 //获取验证码
 export function findSvg() {
-  let data={}
+  
   return fetch({
     url: "/api/authCode",
-    method: "get",
-    params: data
+    method: "get"
   })
 }
 //注册

@@ -8,7 +8,7 @@
       <FormItem prop="password">
         <Input type="password" v-model="formInline.password" placeholder="Password" />
       </FormItem>
-      <FormItem >
+      <FormItem>
         <Input type="text" v-model="formInline.code" placeholder="Code" />
       </FormItem>
       <FormItem>
@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import { findSvg,login } from "@/api/public";
+import { findSvg, login } from "@/api/public";
+import { encrypt, decrypt } from "@/encryption/aes";
+import { Encrypt, Decrypt } from "@/encryption/aes1";
 export default {
   name: "HelloWorld",
   data() {
@@ -28,7 +30,7 @@ export default {
       formInline: {
         user: "",
         password: "",
-        code:""
+        code: ""
       },
       ruleInline: {
         user: [
@@ -50,15 +52,30 @@ export default {
   },
   methods: {
     handleSubmit(name) {
+      // Encrypt 加密
+      // let a = Encrypt("小明");
+      // console.log(a);
+      // // Decrypt 解密
+      // let b= Decrypt(a);
+      // console.log(b);
       this.$refs[name].validate(valid => {
         if (valid) {
-          login(this.formInline).then(res=>{
-            console.log(res.data)
-            // let userToken = 'Bearer ' + res.data.data.body.token;
-          // 将用户token保存到vuex中
-          // this.changeLogin({ Authorization: userToken });
-          })
-          this.$Message.success("Success!");
+          let nameAndPassword =
+            this.formInline.user + "&&" + this.formInline.password;
+          let easObj = encrypt(nameAndPassword);
+          let data = {
+            userInfo: easObj,
+            authCode: this.formInline.code
+          };
+          login(data).then(res => {
+            console.log(res);
+            if (res.data.status == "200") {
+              this.$Message.success("登陆成功");
+            } else {
+              this.$Message.warning(res.data.message);
+              this.cutCode();
+            }
+          });
         } else {
           return false;
         }
