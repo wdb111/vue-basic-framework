@@ -52,12 +52,6 @@ export default {
   },
   methods: {
     handleSubmit(name) {
-      // Encrypt 加密
-      // let a = Encrypt("小明");
-      // console.log(a);
-      // // Decrypt 解密
-      // let b= Decrypt(a);
-      // console.log(b);
       this.$refs[name].validate(valid => {
         if (valid) {
           let nameAndPassword =

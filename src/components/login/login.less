@@ -1,0 +1,84 @@
+.loginAndRegin-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image: url("../../assets/img/login.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: all 1s;
+
+  .login-box {
+    position: absolute;
+    bottom: 100px;
+    right: 40px;
+    width: 450px;
+    padding: 10px 30px 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #fff;
+    animation: mymove 3s infinite ease;
+    animation-iteration-count:1;
+    //transition: all .4s;
+
+    &:hover {
+      box-shadow: 5px 5px 20px #0034FF, -5px -5px 20px #0034FF;
+      transition: all .4s;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .authCode-box {
+      display: flex;
+
+      .authCode-img {
+        width: 100px;
+        height: 40px;
+        vertical-align: middle;
+        margin-left: 40px;
+        cursor: pointer;
+      }
+    }
+
+    footer {
+      &>div:first-child {
+        text-align: center;
+      }
+
+      &>div:last-child {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+
+        span {
+          color: #0F8CE9;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .transform {
+    bottom: 40px;
+    //width: 100%;
+    //position: relative;
+    animation: mymove 3s infinite ease;
+    animation-iteration-count:1;
+    //animation-fill-mode: forwards;
+    // transform: rotateY(360deg);
+  }
+}
+
+.Box {
+  background-image: url("../../assets/img/regin.jpeg");
+  transition: all 1s;
+}
+
+@keyframes mymove {
+  0% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
