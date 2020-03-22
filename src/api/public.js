@@ -32,24 +32,24 @@ export function login(params) {
   })
 }
 //查询数据
-export function selectValue(tableName, params) {
-  let a = JSON.stringify(params)
+export function selectValue({tableName, params}) {
+  let a = JSON.stringify(params||[])
   let data = {
     tableName: tableName,
     params: a
   }
   return fetch({
     url: "/api/selectValue",
-    method: "get",
+    method: "post",
     params: data
   })
 }
 //添加数据
 export function addValue(tableName, params) {
-  // let params=JSON.stringify(params)
+  let a=JSON.stringify(params)
   let data = {
     tableName: tableName,
-    params: params
+    params: a
   }
   return fetch({
     url: '/api/addValue',
@@ -59,7 +59,7 @@ export function addValue(tableName, params) {
 }
 
 //删除数据
-export function deleteValue(tableName, params) {
+export function deleteValue({tableName, params}) {
   let a = JSON.stringify(params)
   let data = {
     tableName: tableName,
@@ -75,10 +75,11 @@ export function deleteValue(tableName, params) {
 //更新数据
 export function updateValue(tableName, params, newData) {
   let a = JSON.stringify(params)
+  let b=JSON.stringify(newData)
   let data = {
     tableName: tableName,
     params: a,
-    newData
+    newData:b
   }
   return fetch({
     url: "/api/updateValue",
@@ -99,5 +100,21 @@ export function getValue(ciKey, parameterList, page, pageSize, sortList) {
     url: "/apj/publicController/getValueByApp/" + ciKey,
     method: "post",
     data
+  });
+}
+
+//上传文件
+export function fileUpload(formData, config) {
+  console.log(formData, config)
+  let a = JSON.stringify(formData);
+  let b = JSON.stringify(config)
+  let data = {
+    formData: a,
+    config: b
+  }
+  return fetch({
+    url: '/api/fileUpload',
+    method: 'post',
+    params: data
   });
 }

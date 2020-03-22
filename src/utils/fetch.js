@@ -7,6 +7,10 @@ import axios from 'axios'; // 引入axios
 // vuex的路径根据自己的路径去写
 import store from '../store/index';
 import router from '../router';
+import {
+  Message
+} from 'view-design';
+
 
 
 /** 
@@ -14,7 +18,7 @@ import router from '../router';
  * 禁止点击蒙层、显示一秒后关闭
  */
 const tip = msg => {
-  this.$Message.warning(msg);
+  Message.warning(msg);
 }
 
 /** 
@@ -39,16 +43,19 @@ const toLogin = () => {
 const errorHandle = (status, other) => {
   // 状态码判断
   switch (status) {
-    // 401: 未登录状态，跳转登录页
+    // 401: 验证码错误
     case 401:
-      toLogin();
+      tip('验证码错误');
       break;
       // 403 token过期
       // 清除token并跳转登录页
+    case 402:
+      tip('用户名或密码错误');
+      break;
     case 403:
       tip('登录过期，请重新登录');
       localStorage.removeItem('token');
-      store.commit('loginSuccess', null);
+      // store.commit('loginSuccess', null);
       setTimeout(() => {
         toLogin();
       }, 1000);
@@ -79,9 +86,9 @@ instance.interceptors.request.use(
     // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        
     // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。  
     const token = localStorage.getItem('token');
-    console.log(token)
-    token && (config.headers.Token = token);
-    console.log(66666,config)
+
+    token && (config.headers.token = token); //有token就设置token
+
     return config;
   },
   error => Promise.error(error))
@@ -93,14 +100,23 @@ instance.interceptors.response.use(function (response) {
   // console.log(response)
   // 请求成功,对响应数据做点什么
   // 将用户token保存到vuex中
-  let userToken = response.data.token;
-  if(!('isCode' in response.data)){
-    store.commit('setToken',userToken);
+
+  if (response.config.url == "/api/login") {
+    let userToken = response.data.token || "";
+    let userName = response.data.data ? response.data.data[0].name : "";
+    let userId = response.data.data ? response.data.data[0]._id : "";
+    store.commit('setToken', userToken);
+    store.commit('setUser', userName)
+    store.commit('setUserId', userId)
   }
-  return response;
+  // 对响应错误做点什么
+
+  if (response.data.status !== 200) {
+    errorHandle(response.data.status);
+  }
+  return response.data;
 }, function (error) {
   // 对响应错误做点什么
-  errorHandle(res.status);
   return Promise.reject(error);
 });
 export default instance;

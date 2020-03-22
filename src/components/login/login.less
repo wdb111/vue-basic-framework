@@ -15,20 +15,22 @@
     padding: 10px 30px 20px;
     box-sizing: border-box;
     border-radius: 10px;
-    background-color: #fff;
+    color: #fff;
     animation: mymove 3s infinite ease;
     animation-iteration-count:1;
-    //transition: all .4s;
 
     &:hover {
-      box-shadow: 5px 5px 20px #0034FF, -5px -5px 20px #0034FF;
+      
+    background-color: rgba(0, 0, 0,0.4);
+      box-shadow: 5px 5px 20px rgb(46, 88, 255), -5px -5px 20px #0034FF;
       transition: all .4s;
     }
 
     h2 {
+      margin-bottom: 20px;
       text-align: center;
     }
-
+    
     .authCode-box {
       display: flex;
 
@@ -42,8 +44,16 @@
     }
 
     footer {
+      
       &>div:first-child {
         text-align: center;
+        .login-button {
+          border: 1px solid rgb(23, 100, 200);
+          background-color: rgba(23, 100, 200,0);
+        }
+        .login-button:hover {
+          background-color: rgba(23, 100, 200,0.4);
+        }
       }
 
       &>div:last-child {
@@ -59,7 +69,7 @@
     }
   }
   .transform {
-    bottom: 40px;
+    // bottom: 40px;
     //width: 100%;
     //position: relative;
     animation: mymove 3s infinite ease;
@@ -70,7 +80,7 @@
 }
 
 .Box {
-  background-image: url("../../assets/img/regin.jpeg");
+  background-image: url("../../assets/img/reg.jpg");
   transition: all 1s;
 }
 

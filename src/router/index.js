@@ -1,15 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/HelloWorld'
-import home from '@/components/home';
+import login from '@/components/login'
+import home from '@/components/homePage';
+import First from '@/components/first-page';
+
 
 Vue.use(Router)
 
 const router= new Router({
   routes: [
+    // { path: '/', 
+    //   // 方法接收 目标路由 作为参数
+    //   // return 重定向的 字符串路径/路径对象
+    //   redirect: to =>{
+    //             if(store.state.user.roles && store.state.user.roles.includes('admin'))return '/a';
+    //             if(store.state.user.roles && store.state.user.roles.includes('manager'))return '/b';
+    //             if(store.state.user.roles && store.state.user.roles.includes('check'))return '/c';
+    //             return '/draft'
+    //         },
+    // }}
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/login'//重定向
     },
     {
       path: '/login',
@@ -19,7 +31,14 @@ const router= new Router({
     {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      children:[
+        {
+          path:'/home',
+          name:'first',
+          component:First
+        }
+      ]
     }
   ]
 })
