@@ -4,9 +4,10 @@ Vue.use(Vuex);
 
 const state = { //要设置的全局访问的state对象
   // 存储token
-  token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
-  USER:localStorage.getItem('USER') ? localStorage.getItem('USER') : '',
-  USERID:localStorage.getItem('USERID') ? localStorage.getItem('USERID') : '',
+  token: localStorage.getItem('token') || '',
+  USER: localStorage.getItem('USER') || '',
+  USERID: localStorage.getItem('USERID') || '',
+  baseColor:sessionStorage.getItem("baseColor")||"#2270e9",
   showFooter: true,
   changableNum: 0 //要设置的初始属性值
 };

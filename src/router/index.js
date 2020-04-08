@@ -29,16 +29,20 @@ const router= new Router({
       component: login
     },
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: home,
       children:[
         {
-          path:'/home',
+          path:'home',
           name:'first',
           component:First
         }
       ]
+    },
+    {
+      path:"*",
+      component:()=>import("@/components/not-found-page/not-found")
     }
   ]
 })
@@ -49,7 +53,6 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let token = localStorage.getItem('Authorization');
- 
     if (token === 'null' || token === '') {
       next('/login');
     } else {

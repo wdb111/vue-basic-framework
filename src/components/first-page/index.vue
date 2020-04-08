@@ -2,10 +2,22 @@
   <div id="first-page">
     <div class="header">
       <Button type="primary" @click="addData()">增加</Button>
-      <Button>删除</Button>
+      <Button type="error">删除</Button>
     </div>
-
     <div class="table-box">
+      <!-- <el-table
+        :data="data1"
+        ref="multipleTable"
+        tooltip-effect="dark"
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column prop="name" label="姓名"></el-table-column>
+        <el-table-column prop="age" label="年龄"></el-table-column>
+        <el-table-column prop="telephone" label="电话"></el-table-column>
+        <el-table-column prop="address" label="操作"></el-table-column>
+      </el-table> -->
       <Table border ref="selection" :columns="columns4" :data="data1">
         <template slot-scope="{ row}" slot="action">
           <Button type="primary" size="small" style="margin-right: 5px" @click="updateData(row)">修改</Button>
@@ -47,12 +59,14 @@
 </template>
 
 <script>
+import Mixin from "@/mixin/mixin"
 import { addValue, selectValue, deleteValue, updateValue } from "@/api/public";
 export default {
+  mixins:[Mixin],
   name: "First",
   data() {
     return {
-        modelTitle:"",
+      modelTitle: "",
       spinShow: false,
       modal1: false,
       oldData: {},
@@ -104,7 +118,7 @@ export default {
     },
     addData() {
       this.formType = "add";
-      this.modelTitle="添加数据";
+      this.modelTitle = "添加数据";
       this.modal1 = true;
       this.formItem = {
         name: "",
@@ -118,7 +132,7 @@ export default {
     },
     updateData(row) {
       this.formType = "update";
-      this.modelTitle="修改数据";
+      this.modelTitle = "修改数据";
       this.modal1 = true;
       this.oldData = JSON.parse(JSON.stringify(row));
       this.formItem = JSON.parse(JSON.stringify(row));
