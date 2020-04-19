@@ -2,8 +2,8 @@
   <div id="home-page">
     <Header></Header>
     <div class="body">
-      <Nav></Nav>
-      <router-view></router-view>
+        <Nav @changeMsg="changeCss"></Nav>
+        <router-view :class="[extend?'display':'retrct']"></router-view>
     </div>
     <footer>Copyright&nbsp;&nbsp;2020&nbsp;王代彬. 拥有所有版权</footer>
   </div>
@@ -21,8 +21,15 @@ export default {
   },
   data() {
     return {
+      extend:false
     };
-  }
+  },
+  methods: {
+    changeCss(val){
+      this.extend=val.extend;
+      console.log(val)
+    }
+  },
 };
 </script>
 <style lang="less" scoped>

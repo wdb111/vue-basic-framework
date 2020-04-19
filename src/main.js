@@ -8,8 +8,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import store from './store';//导入vuex文件
+import i18n from './language'//国际化
+import local from "element-ui/lib/locale/lang/en"
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {
+  local
+})
 Vue.use(ViewUI);
 Vue.config.productionTip = false;//阻止启动生产消息,没有这句代码，它会显示你生产模式的消息
 
@@ -18,6 +22,7 @@ new Vue({
   el: '#app',
   router,
   store,//使用store
+  i18n,
   components: { App },
   template: '<App/>'
 })

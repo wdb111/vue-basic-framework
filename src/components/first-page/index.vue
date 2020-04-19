@@ -1,27 +1,15 @@
 <template>
   <div id="first-page">
+    <h1>首页</h1>
     <div class="header">
-      <Button type="primary" @click="addData()">增加</Button>
-      <Button type="error">删除</Button>
+      <Button class="public-skin" @click="addData()">{{$t("add")}}</Button>
+      <!-- <Button type="error">{{$t("del")}}</Button> -->
     </div>
     <div class="table-box">
-      <!-- <el-table
-        :data="data1"
-        ref="multipleTable"
-        tooltip-effect="dark"
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="name" label="姓名"></el-table-column>
-        <el-table-column prop="age" label="年龄"></el-table-column>
-        <el-table-column prop="telephone" label="电话"></el-table-column>
-        <el-table-column prop="address" label="操作"></el-table-column>
-      </el-table> -->
-      <Table border ref="selection" :columns="columns4" :data="data1">
-        <template slot-scope="{ row}" slot="action">
-          <Button type="primary" size="small" style="margin-right: 5px" @click="updateData(row)">修改</Button>
-          <Button type="error" size="small" @click="removeData(row)">删除</Button>
+      <Table max-height="400" border ref="selection" :columns="columns4" :data="data1">
+        <template slot-scope="{row}" slot="action">
+          <Button class="public-skin" size="small" style="margin-right: 5px" @click="updateData(row)">{{$t("edit")}}</Button>
+          <Button type="error" size="small" @click="removeData(row)">{{$t("del")}}</Button>
         </template>
       </Table>
       <Spin class="spin" size="large" fix v-if="spinShow"></Spin>
@@ -71,11 +59,11 @@ export default {
       modal1: false,
       oldData: {},
       columns4: [
-        {
-          type: "selection",
-          width: 60,
-          align: "center"
-        },
+        // {
+        //   type: "selection",
+        //   width: 60,
+        //   align: "center"
+        // },
         {
           title: "姓名",
           key: "name"

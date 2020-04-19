@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  mounted() {
+     document.body.className = sessionStorage.getItem('baseColor')||"themea";
+  },
 };
 </script>
 
@@ -21,4 +24,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+</style>
+<style lang="less">
+  @import "./style/color.less";
 </style>

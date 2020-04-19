@@ -1,53 +1,68 @@
 <template>
   <div class="nav">
-    <div class="icon-box" @click="isCollapse=!isCollapse">
-        <i v-if="isCollapse" class="el-icon-s-unfold icon"></i>
-        <i v-else class="el-icon-s-fold icon"></i>
+    <div class="icon-box" @click="changeCss">
+      <i v-if="isCollapse" class="el-icon-s-unfold icon"></i>
+      <i v-else class="el-icon-s-fold icon"></i>
     </div>
     <el-menu
+      router
       default-active="1-4-1"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
+      :background-color="navBackground"
+      text-color="#fff"
     >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+     <!-- 菜单组件 -->
+          <side-Meuns :routes="getRoutes"></side-Meuns>
     </el-menu>
   </div>
 </template>
 <script>
+// 左侧菜单组件
+import sideMeuns from './sideMeuns'
 export default {
+  components: {
+    sideMeuns
+  },
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
+      getRoutes: this.$store.state.antRouter
     };
   },
+  computed: {
+    navBackground() {
+      let str = "";
+      let className = this.$store.state.baseColor;
+      let obj = [
+        {
+          name: "themea",
+          color: "#EEA2AD"
+        },
+        {
+          name: "themeb",
+          color: "#409EFF"
+        },
+        {
+          name: "themec",
+          color: "#333"
+        }
+      ];
+      obj.forEach(item => {
+        if (item.name === className) {
+          str = item.color;
+        }
+      });
+      return str;
+    }
+  },
   methods: {
+    changeCss() {
+      this.isCollapse = !this.isCollapse;
+      this.$emit("changeMsg", { extend: !this.isCollapse });
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -59,13 +74,15 @@ export default {
 </script>
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 220px;
+  width: 200px;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .el-menu--collapse {
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>
 <style lang="less" scoped>

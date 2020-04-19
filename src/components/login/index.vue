@@ -134,7 +134,7 @@ export default {
               if (res.status == 200) {
                 this.$router.push("/home");
               } else {
-                this.cutCode();
+                // this.cutCode();
               }
             });
           } else {

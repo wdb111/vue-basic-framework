@@ -102,9 +102,12 @@ instance.interceptors.response.use(function (response) {
   // 将用户token保存到vuex中
 
   if (response.config.url == "/api/login") {
+    
     let userToken = response.data.token || "";
     let userName = response.data.data ? response.data.data[0].name : "";
     let userId = response.data.data ? response.data.data[0]._id : "";
+    let getUserRole = response.data.data&&response.data.data[0].system ? 'admin' : 'user'
+      localStorage.setItem('userRole', getUserRole)
     store.commit('setToken', userToken);
     store.commit('setUser', userName)
     store.commit('setUserId', userId)
