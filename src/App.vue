@@ -24,6 +24,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+  width: 8px;
+  /*  height: 10px; */
+}
+
+/* 滚动条的滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #063b5a27;
+  border-radius: 5px;
+}
 </style>
 <style lang="less">
   @import "./style/color.less";
